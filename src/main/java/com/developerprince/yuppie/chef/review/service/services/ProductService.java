@@ -7,9 +7,11 @@ import com.developerprince.yuppie.chef.review.service.repositories.CategoryRepos
 import com.developerprince.yuppie.chef.review.service.repositories.ProductRepository;
 import com.developerprince.yuppie.chef.review.service.repositories.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 
 import java.util.Iterator;
 import java.util.Optional;
@@ -44,10 +46,10 @@ public class ProductService {
                 .build() ), HttpStatus.CREATED);
     }
 
-    public ResponseEntity<Object> retrieveAllProductByStoreId(Long storeId){
+    public ResponseEntity<Object> retrieveAllProductByStoreId(Long storeId, Pageable pageable){
         Optional<Store> store = storeRepository.findById( storeId );
         if(store.isPresent()){
-            return new ResponseEntity<>( productRepository.findAllByStore(store.get()), HttpStatus.OK );
+            return new ResponseEntity<>( productRepository.findAllByStore(store.get(), pageable), HttpStatus.OK );
         }
         return new ResponseEntity<>( "Can not find Store", HttpStatus.EXPECTATION_FAILED );
     }

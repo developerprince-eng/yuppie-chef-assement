@@ -5,6 +5,7 @@ import com.developerprince.yuppie.chef.review.service.models.ReviewDto;
 import com.developerprince.yuppie.chef.review.service.models.entity.*;
 import com.developerprince.yuppie.chef.review.service.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -92,10 +93,10 @@ public class ReviewService extends  BaseResources{
         return new ResponseEntity<>( "No Such Review", HttpStatus.NOT_FOUND );
     }
 
-    public ResponseEntity<Object> retrieveReiewsByStore(Long storeId){
+    public ResponseEntity<Object> retrieveReiewsByStore(Long storeId, Pageable pageable){
         Optional<Store> store = storeRepository.findById(storeId);
         if(store.isPresent()){
-            return new ResponseEntity<>(reviewRepository.findByStore( store.get() ), HttpStatus.OK );
+            return new ResponseEntity<>(reviewRepository.findByStore( store.get(), pageable ), HttpStatus.OK );
         }
         return new ResponseEntity<>( "No Such store", HttpStatus.NOT_FOUND );
     }

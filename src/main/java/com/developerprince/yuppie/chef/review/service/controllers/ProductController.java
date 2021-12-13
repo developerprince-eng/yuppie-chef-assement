@@ -4,6 +4,9 @@ import com.developerprince.yuppie.chef.review.service.models.ProductDto;
 import com.developerprince.yuppie.chef.review.service.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +29,8 @@ public class ProductController {
     }
 
     @GetMapping("/store/{id}")
-    public ResponseEntity<Object> getAllProducts(@PathVariable("id")Long storeId){
-        return productService.retrieveAllProductByStoreId(storeId);
+    public ResponseEntity<Object> getAllProducts(@PathVariable("id")Long storeId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10", required = false) int size){
+        Pageable paging = PageRequest.of( page, size, Sort.by( "postId" ).descending() );
+        return productService.retrieveAllProductByStoreId(storeId, paging);
     }
 }
