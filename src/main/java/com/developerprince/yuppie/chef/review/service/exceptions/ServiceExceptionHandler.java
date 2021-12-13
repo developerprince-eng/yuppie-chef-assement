@@ -10,12 +10,16 @@ import org.springframework.dao.NonTransientDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.naming.OperationNotSupportedException;
 import javax.naming.directory.InvalidSearchFilterException;
+import javax.validation.UnexpectedTypeException;
 import java.sql.SQLException;
 
 @Slf4j
@@ -45,12 +49,6 @@ public class ServiceExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 
-	@ExceptionHandler(value = {Throwable.class})
-	public ResponseEntity<Object> handleDBException(Throwable ex){
-		ErrorMessage errorMessage = new ErrorMessage(GENERALEXPECTIONMSG,417,RESULT);
-		log.error(EXCEPTIONMSG,ex.getMessage(),ex);
-		return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.EXPECTATION_FAILED);
-	}
 	@ExceptionHandler(value = {Exception.class})
 	public ResponseEntity<Object> handleDBException(Exception ex){
 		ErrorMessage errorMessage = new ErrorMessage(GENERALEXPECTIONMSG,417,RESULT);
@@ -128,4 +126,21 @@ public class ServiceExceptionHandler extends ResponseEntityExceptionHandler {
 		log.error(EXCEPTIONMSG,ex.getMessage(),ex);
 		return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.EXPECTATION_FAILED);
 	}
+
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+																  HttpHeaders headers, HttpStatus status,
+																  WebRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(
+				HttpStatus.UNPROCESSABLE_ENTITY.value(),
+				"Validation error. Check 'errors' field for details."
+		);
+
+		for (FieldError fieldError : ex.getBindingResult().getFieldErrors())
+			errorResponse.addValidationError( fieldError.getField(),
+					fieldError.getDefaultMessage() );
+		return ResponseEntity.badRequest().body(errorResponse);
+	}
+
+
 }

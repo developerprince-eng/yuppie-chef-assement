@@ -1,6 +1,9 @@
 package com.developerprince.yuppie.chef.review.service.models.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -12,6 +15,9 @@ import java.util.Set;
 @Entity
 @Table(name="customer")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Customer implements Serializable {
     private static final long serialVersionUID = 2166984451L;
     @Id

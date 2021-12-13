@@ -1,7 +1,10 @@
 package com.developerprince.yuppie.chef.review.service.models.entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +12,9 @@ import java.io.Serializable;
 @Entity
 @Table(name="contact")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Contact implements Serializable {
     private static final long serialVersionUID = 2166984451L;
     @Id

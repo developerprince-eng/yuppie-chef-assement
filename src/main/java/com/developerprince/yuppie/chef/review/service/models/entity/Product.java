@@ -1,6 +1,9 @@
 package com.developerprince.yuppie.chef.review.service.models.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -11,6 +14,9 @@ import java.util.Set;
 @Entity
 @Table(name = "product")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Product implements Serializable {
     private static final long serialVersionUID = 2166984451L;
     @Id
@@ -33,6 +39,11 @@ public class Product implements Serializable {
     @Column(name = "color",columnDefinition = "VARCHAR(196)")
     private String color;
 
+
+    @Column(name = "store_id",columnDefinition = "BIGINT")
+    private Long storeId;
+
+
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", nullable = false, updatable = false, insertable = false,
             foreignKey = @ForeignKey(name = "product_category_fk",
@@ -48,4 +59,8 @@ public class Product implements Serializable {
             ))
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Review> reviews;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id", updatable = false, insertable = false)
+    private Store store;
 }

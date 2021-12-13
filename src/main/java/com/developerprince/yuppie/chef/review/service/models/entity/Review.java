@@ -1,6 +1,9 @@
 package com.developerprince.yuppie.chef.review.service.models.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -10,6 +13,9 @@ import java.io.Serializable;
 @Entity
 @Table(name = "review")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Review implements Serializable {
     private static final long serialVersionUID = 2166984451L;
     @Id
@@ -32,4 +38,7 @@ public class Review implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Customer customer;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id", updatable = false, insertable = false)
+    private Store store;
 }
