@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS customer (
     CONSTRAINT customer_pkey PRIMARY KEY (id),
     CONSTRAINT customer_address_fk FOREIGN KEY (address_id)
         REFERENCES address (id) MATCH SIMPLE,
-    CONSTRAINT user_contact_fk FOREIGN KEY (contact_id)
+    CONSTRAINT customer_contact_fk FOREIGN KEY (contact_id)
         REFERENCES contact (id) MATCH SIMPLE
 );
