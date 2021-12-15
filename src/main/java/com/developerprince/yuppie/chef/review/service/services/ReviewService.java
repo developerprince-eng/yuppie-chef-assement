@@ -1,6 +1,5 @@
 package com.developerprince.yuppie.chef.review.service.services;
 
-import com.developerprince.yuppie.chef.review.service.models.CustomerDto;
 import com.developerprince.yuppie.chef.review.service.models.ReviewDto;
 import com.developerprince.yuppie.chef.review.service.models.entity.*;
 import com.developerprince.yuppie.chef.review.service.repositories.*;
@@ -32,8 +31,8 @@ public class ReviewService extends  BaseResources{
     @Autowired
     StoreRepository storeRepository;
 
-    public ResponseEntity<Object> addNewReviewAsACustomer(CustomerDto customerDto, ReviewDto reviewDto){
-        Optional<Customer> customer = customerRepository.findCustomerByFirstName(customerDto.getFirstName());
+    public ResponseEntity<Object> addNewReviewAsACustomer(ReviewDto reviewDto){
+        Optional<Customer> customer = customerRepository.findCustomerByFirstName(reviewDto.getCustomer().getFirstName());
         Optional<Store> store = storeRepository.findById(reviewDto.getStoreId());
         if(customer.isPresent() && store.isPresent()){
             reviewRepository.save( Review.builder()
@@ -44,7 +43,7 @@ public class ReviewService extends  BaseResources{
                     .build() );
         }
         Set<Address> addresses = new HashSet<>(  );
-        customerDto.getAddresses().stream().forEach( addressDto -> {
+        reviewDto.getCustomer().getAddresses().forEach( addressDto -> {
             Address address =  addressRepository.saveAndFlush( Address.builder()
                     .street( addressDto.getStreet() )
                     .addressUnit( addressDto.getAddressUnit() )
@@ -54,7 +53,7 @@ public class ReviewService extends  BaseResources{
         } );
 
         Set<Contact> contacts = new HashSet<>(  );
-        customerDto.getContacts().stream().forEach( contactDto -> {
+        reviewDto.getCustomer().getContacts().stream().forEach( contactDto -> {
             Contact contact = contactRepository.saveAndFlush( Contact.builder()
                     .emailAddress( contactDto.getEmailAddress() )
                     .mobile( contactDto.getMobile() )
@@ -67,12 +66,12 @@ public class ReviewService extends  BaseResources{
         Set<Address> addressSet = new HashSet<>();
         Set<Contact> contactSet = new HashSet<>();
 
-        iteratorToIterable( addresses.iterator() ).forEach( address -> addressSet.add( address ));
-        iteratorToIterable( contacts.iterator() ).forEach( contact -> contactSet.add( contact ) );
+        iteratorToIterable( addresses.iterator() ).forEach(addresses::add);
+        iteratorToIterable( contacts.iterator() ).forEach(contacts::add);
         return new ResponseEntity<>( customerRepository.save( Customer.builder()
-                .firstName( customerDto.getFirstName() )
-                .lastName( customerDto.getLastName() )
-                .dob( customerDto.getDob() )
+                .firstName( reviewDto.getCustomer().getFirstName() )
+                .lastName( reviewDto.getCustomer().getLastName() )
+                .dob( reviewDto.getCustomer().getDob() )
                 .addresses(addressSet)
                 .contacts(contactSet )
                 .build()), HttpStatus.CREATED );
@@ -93,10 +92,10 @@ public class ReviewService extends  BaseResources{
         return new ResponseEntity<>( "No Such Review", HttpStatus.NOT_FOUND );
     }
 
-    public ResponseEntity<Object> retrieveReiewsByStore(Long storeId, Pageable pageable){
+    public ResponseEntity<Object> retrieveReiewsByStore(Long storeId){
         Optional<Store> store = storeRepository.findById(storeId);
         if(store.isPresent()){
-            return new ResponseEntity<>(reviewRepository.findByStore( store.get(), pageable ), HttpStatus.OK );
+            return new ResponseEntity<>(reviewRepository.findByStore( store.get()), HttpStatus.OK );
         }
         return new ResponseEntity<>( "No Such store", HttpStatus.NOT_FOUND );
     }
