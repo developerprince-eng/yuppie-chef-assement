@@ -1,0 +1,4 @@
+UPDATE product SET image_url = 'https://raw.githubusercontent.com/developerprince-eng/yuppie-chef-assement-react/main/src/images/blender/Blender1.jpg' WHERE id = 4;
+UPDATE product SET image_url = 'https://raw.githubusercontent.com/developerprince-eng/yuppie-chef-assement-react/main/src/images/blender/blender2.jpg' WHERE id = 3;
+UPDATE product SET image_url = 'https://raw.githubusercontent.com/developerprince-eng/yuppie-chef-assement-react/main/src/images/blender/blender3.jpg' WHERE id = 2;
+UPDATE product SET image_url = 'https://raw.githubusercontent.com/developerprince-eng/yuppie-chef-assement-react/main/src/images/blender/blender4.jpg' WHERE id = 1;

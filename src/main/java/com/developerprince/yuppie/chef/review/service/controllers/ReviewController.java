@@ -15,16 +15,19 @@ public class ReviewController {
     @Autowired
     ReviewService reviewService;
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")//NOSONAR
     @PostMapping("/customer")
     public ResponseEntity<Object> addReviewAsACustomer(@RequestBody ReviewDto reviewDto){
         return reviewService.addNewReviewAsACustomer(  reviewDto );
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")//NOSONAR
     @PutMapping("/edit")
     public ResponseEntity<Object> editReview(@RequestBody ReviewDto reviewDto){
         return reviewService.editReview(reviewDto);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")//NOSONAR
     @GetMapping("/store/{storeId}")
     public ResponseEntity<Object> getReviews(@PathVariable("storeId")Long storeId){
         return reviewService.retrieveReiewsByStore(storeId);

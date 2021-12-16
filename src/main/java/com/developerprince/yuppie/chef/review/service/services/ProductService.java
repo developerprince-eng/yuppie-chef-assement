@@ -53,4 +53,14 @@ public class ProductService {
         }
         return new ResponseEntity<>( "Can not find Store", HttpStatus.EXPECTATION_FAILED );
     }
+
+    public ResponseEntity<Object> deleteProductByProductId(Long id){
+
+        Optional<Product> product = productRepository.findById( id );
+        if(product.isPresent()){
+            productRepository.deleteById(id);
+            return new ResponseEntity<>( "Deleted Product", HttpStatus.OK );
+        }
+        return new ResponseEntity<>( "Product Not Found", HttpStatus.NOT_FOUND );
+    }
 }

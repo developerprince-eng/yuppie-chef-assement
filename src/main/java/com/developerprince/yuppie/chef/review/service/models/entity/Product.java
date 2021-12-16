@@ -39,6 +39,8 @@ public class Product implements Serializable {
     @Column(name = "color",columnDefinition = "VARCHAR(196)")
     private String color;
 
+    @Column(name = "image_url",columnDefinition = "TEXT")
+    private String imageUrl;
 
     @Column(name = "store_id",columnDefinition = "BIGINT")
     private Long storeId;

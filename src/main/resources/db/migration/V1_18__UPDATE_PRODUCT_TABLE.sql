@@ -1,0 +1,13 @@
+INSERT INTO product(id, name, dimensions, model_type, weight, color, store_id, category_id) VALUES (1, 'NutriBlend', '1.6 Litres', '1000W High Speed Blender Combo Set','1.3Kg', 'black', 1, 1);
+INSERT INTO product(id, name, dimensions, model_type, weight, color, store_id, category_id) VALUES (2, 'NutriBlend', '2 Litres', '1200W High Speed Blender Combo Set','1.6Kg', 'black', 1, 1);
+INSERT INTO product(id, name, dimensions, model_type, weight, color, store_id, category_id) VALUES (3, 'Smeg', '1.5 Litres', 'Retro Style 1.5L Jug Blender', '1.3Kg','white', 1, 1);
+INSERT INTO product(id, name, dimensions, model_type, weight, color, store_id, category_id) VALUES (4, 'Magimix', '1.6 Litres', 'Power Jug Blender, 1.8L','1.3Kg' ,'silver', 1, 1);
+INSERT INTO product(id, name, dimensions, model_type, weight, color, store_id, category_id) VALUES (5, 'NutriBlend', '1.6 Litres', '1000W High Speed Blender Combo Set','1.3Kg', 'black', 2, 1);
+INSERT INTO product(id, name, dimensions, model_type, weight, color, store_id, category_id) VALUES (6, 'NutriBlend', '2 Litres', '1200W High Speed Blender Combo Set','1.6Kg', 'black', 2, 1);
+INSERT INTO product(id, name, dimensions, model_type, weight, color, store_id, category_id) VALUES (7, 'NutriBlend', '1.6 Litres', '1000W High Speed Blender Combo Set','1.3Kg', 'black', 3, 1);
+INSERT INTO product(id, name, dimensions, model_type, weight, color, store_id, category_id) VALUES (8, 'NutriBlend', '2 Litres', '1200W High Speed Blender Combo Set','1.6Kg', 'black', 3, 1);
+INSERT INTO product(id, name, dimensions, model_type, weight, color, store_id, category_id) VALUES (9, 'Smeg', '1.5 Litres', 'Retro Style 1.5L Jug Blender', '1.15Kg', 'white', 4, 1);
+INSERT INTO product(id, name, dimensions, model_type, weight, color, store_id, category_id) VALUES (10, 'Magimix', '1.6 Litres', 'Power Jug Blender, 1.8L','1.4Kg' , 'silver', 4, 1);
+INSERT INTO product(id, name, dimensions, model_type, weight, color, store_id, category_id) VALUES (11, 'Magimix', '1.6 Litres', 'Power Jug Blender, 1.8L', '1.5Kg' ,'silver', 5, 1);
+INSERT INTO product(id, name, dimensions, model_type, weight, color, store_id, category_id) VALUES (12, 'NutriBlend', '2 Litres', '1200W High Speed Blender Combo Set','1.6Kg', 'black', 6, 1);
+INSERT INTO product(id, name, dimensions, model_type, weight, color, store_id, category_id) VALUES (13, 'NutriBlend', '2 Litres', '1200W High Speed Blender Combo Set','1.6Kg', 'black', 7, 1);
